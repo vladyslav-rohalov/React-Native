@@ -1,19 +1,13 @@
 import { useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import {
-  StyleSheet,
-  View,
-  ImageBackground,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import RegistrationScreen from './Screens/RegistrationScreen/RegistrationScreen';
+import RegistrationScreen from './Screens/auth/RegistrationScreen';
+import LoginScreen from './Screens/auth/LoginScreen';
+import PostScreen from './Screens/posts/postsScreen';
 
 SplashScreen.preventAutoHideAsync();
-
-const backgroundImage = require('./assets/images/bg.jpg');
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -33,27 +27,15 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <ImageBackground
-          source={backgroundImage}
-          resizeMode="cover"
-          style={styles.image}
-        >
-          <StatusBar style="auto" />
-          <RegistrationScreen />
-        </ImageBackground>
-      </TouchableWithoutFeedback>
+    <View onLayout={onLayoutRootView} style={styles.container}>
+      <StatusBar style="auto" />
+      <PostScreen />
+      {/* <RegistrationScreen /> */}
+      {/* <LoginScreen /> */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  image: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
+  container: { flex: 1, justifyContent: 'center' },
 });
