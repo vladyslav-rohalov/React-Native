@@ -5,7 +5,8 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import RegistrationScreen from './Screens/auth/RegistrationScreen';
 import LoginScreen from './Screens/auth/LoginScreen';
-import PostScreen from './Screens/posts/postsScreen';
+import PostsScreen from './Screens/posts/postsScreen';
+import CreatePostScreen from './Screens/posts/createPostsScreen';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -14,6 +15,7 @@ export default function App() {
     'Audiowide-Regular': require('./assets/fonts/Audiowide-Regular.ttf'),
     'Roboto-Regular': require('./assets/fonts/Roboto/Roboto-Regular.ttf'),
     'Roboto-Medium': require('./assets/fonts/Roboto/Roboto-Medium.ttf'),
+    'Roboto-Bold': require('./assets/fonts/Roboto/Roboto-Bold.ttf'),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -29,7 +31,8 @@ export default function App() {
   return (
     <View onLayout={onLayoutRootView} style={styles.container}>
       <StatusBar style="auto" />
-      <PostScreen />
+      <CreatePostScreen />
+      {/* <PostsScreen /> */}
       {/* <RegistrationScreen /> */}
       {/* <LoginScreen /> */}
     </View>
