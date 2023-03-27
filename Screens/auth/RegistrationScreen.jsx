@@ -97,6 +97,7 @@ export default function RegistrationScreen() {
                 ref={nameInputRef}
                 style={styles.input}
                 placeholder="Name"
+                placeholderTextColor={'#BDBDBD'}
                 inputMode="text"
                 onFocus={() => setIsShowKeyboard(true)}
                 onChangeText={e => {
@@ -111,6 +112,7 @@ export default function RegistrationScreen() {
                 ref={mailInputRef}
                 style={styles.input}
                 placeholder="E-mail"
+                placeholderTextColor={'#BDBDBD'}
                 inputMode="email"
                 onFocus={() => setIsShowKeyboard(true)}
                 onChangeText={e => {
@@ -127,6 +129,7 @@ export default function RegistrationScreen() {
                 new-password={true}
                 secureTextEntry={isSecurePassword}
                 placeholder="Password"
+                placeholderTextColor={'#BDBDBD'}
                 inputMode="text"
                 onFocus={() => setIsShowKeyboard(true)}
                 onChangeText={e => {
@@ -193,7 +196,6 @@ const styles = StyleSheet.create({
     borderColor: '#E8E8E8',
     fontFamily: 'Roboto-Regular',
     color: '#212121',
-    placeholderTextColor: '#BDBDBD',
     fontSize: 16,
     margin: 16,
   },

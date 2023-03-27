@@ -51,6 +51,7 @@ export default function LoginScreen() {
                 ref={mailInputRef}
                 style={styles.input}
                 placeholder="E-mail"
+                placeholderTextColor={'#BDBDBD'}
                 onFocus={() => setIsShowKeyboard(true)}
                 onChangeText={e => {
                   setCredentials(prevState => ({ ...prevState, mail: e }));
@@ -64,6 +65,7 @@ export default function LoginScreen() {
                 ref={passwordInputRef}
                 style={styles.input}
                 placeholder="Password"
+                placeholderTextColor={'#BDBDBD'}
                 secureTextEntry={isSecurePassword}
                 onFocus={() => setIsShowKeyboard(true)}
                 onChangeText={e => {
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
     borderColor: '#E8E8E8',
     fontFamily: 'Roboto-Regular',
     color: '#212121',
-    placeholderTextColor: '#BDBDBD',
+
     fontSize: 16,
     margin: 16,
   },

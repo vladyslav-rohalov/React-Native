@@ -31,8 +31,8 @@ export default function App() {
   return (
     <View onLayout={onLayoutRootView} style={styles.container}>
       <StatusBar style="auto" />
-      <CreatePostScreen />
-      {/* <PostsScreen /> */}
+      {/* <CreatePostScreen /> */}
+      <PostsScreen />
       {/* <RegistrationScreen /> */}
       {/* <LoginScreen /> */}
     </View>
