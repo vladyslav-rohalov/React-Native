@@ -201,8 +201,8 @@ const styles = StyleSheet.create({
   },
   svgSignOut: {
     position: 'absolute',
-    top: 54,
-    left: 330,
+    top: 55,
+    right: 16,
   },
   main: {
     flex: 1,

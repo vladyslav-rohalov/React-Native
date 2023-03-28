@@ -7,6 +7,7 @@ import RegistrationScreen from './Screens/auth/RegistrationScreen';
 import LoginScreen from './Screens/auth/LoginScreen';
 import PostsScreen from './Screens/posts/postsScreen';
 import CreatePostScreen from './Screens/posts/createPostsScreen';
+import CommentsScreen from './Screens/posts/commentsScreen';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -32,9 +33,10 @@ export default function App() {
     <View onLayout={onLayoutRootView} style={styles.container}>
       <StatusBar style="auto" />
       {/* <CreatePostScreen /> */}
-      <PostsScreen />
+      {/* <PostsScreen /> */}
       {/* <RegistrationScreen /> */}
       {/* <LoginScreen /> */}
+      <CommentsScreen />
     </View>
   );
 }
