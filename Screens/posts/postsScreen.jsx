@@ -45,7 +45,7 @@ export default function PostsScreen() {
           <Image source={img} style={styles.publicationPhoto} />
           <Text style={styles.publicationText}>Forest</Text>
           <View style={styles.publicationSubBlock}>
-            <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity style={{ flexDirection: 'row' }}>
               <Svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <Path
                   fillRule="evenodd"
@@ -57,9 +57,9 @@ export default function PostsScreen() {
                 />
               </Svg>
               <Text style={styles.publicationComments}>0</Text>
-            </View>
+            </TouchableOpacity>
 
-            <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity style={{ flexDirection: 'row' }}>
               <Svg
                 style={styles.svgLocation}
                 width="24"
@@ -87,7 +87,7 @@ export default function PostsScreen() {
               <Text style={styles.publicationTextLocation}>
                 Ivano-Frankivs'k Region, Ukraine
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
       </View>

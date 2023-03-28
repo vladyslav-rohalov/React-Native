@@ -17,7 +17,7 @@ const initialState = {
   password: '',
 };
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [credentials, setCredentials] = useState('');
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [isSecurePassword, setIsSecurePassword] = useState(true);
@@ -31,6 +31,7 @@ export default function LoginScreen() {
     setCredentials(initialState);
     mailInputRef.current.clear();
     passwordInputRef.current.clear();
+    navigation.navigate('Home');
   };
 
   return (
@@ -83,7 +84,9 @@ export default function LoginScreen() {
             <TouchableOpacity style={styles.button} onPress={handleSignIn}>
               <Text style={styles.buttonText}>Sign In</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Registration')}
+            >
               <Text style={styles.textSignIn}>No account? Sign up</Text>
             </TouchableOpacity>
           </View>
@@ -156,7 +159,7 @@ const styles = StyleSheet.create({
   showPass: {
     position: 'absolute',
     top: 32,
-    left: 320,
+    right: 32,
   },
   showPassText: {
     fontFamily: 'Roboto-Regular',

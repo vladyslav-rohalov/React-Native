@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   ImageBackground,
+  Image,
   TouchableWithoutFeedback,
   // Dimensions,
 } from 'react-native';
@@ -19,7 +20,7 @@ const initialState = {
   password: '',
 };
 
-export default function RegistrationScreen() {
+export default function RegistrationScreen({ navigation }) {
   const [credentials, setCredentials] = useState('');
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [isSecurePassword, setIsSecurePassword] = useState(true);
@@ -27,6 +28,7 @@ export default function RegistrationScreen() {
   const mailInputRef = useRef();
   const passwordInputRef = useRef();
   const backgroundImage = require('../../assets/images/bg.jpg');
+  const userPhoto = require('../../assets/images/photo.jpg');
 
   // const [dimensions, setDimensions] = useState(
   //   Dimensions.get('window').width - 20 * 2
@@ -39,6 +41,7 @@ export default function RegistrationScreen() {
     nameInputRef.current.clear();
     mailInputRef.current.clear();
     passwordInputRef.current.clear();
+    navigation.navigate('Home');
   };
 
   // useEffect(() => {
@@ -64,13 +67,14 @@ export default function RegistrationScreen() {
               // marginBottom: isShowKeyboard ? 20 : 0,
             }}
           >
-            <TouchableOpacity style={styles.blockPhoto}>
+            <TouchableOpacity style={styles.blokPhoto}>
+              <Image source={userPhoto} style={styles.userPhoto} />
               <Svg
+                style={styles.svgAddPhoto}
                 width="25"
                 height="25"
                 viewBox="0 0 25 25"
                 fill="none"
-                style={styles.svgAddPhoto}
               >
                 <Circle
                   cx="12.5"
@@ -152,7 +156,7 @@ export default function RegistrationScreen() {
               <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <Text style={styles.textSignIn}>
                 Already have an account? Sign in
               </Text>
@@ -223,26 +227,32 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingBottom: 78,
   },
-  blockPhoto: {
+  blokPhoto: {
     position: 'absolute',
     top: -60,
     left: '50%',
     transform: [{ translateX: -60 }],
-    width: 120,
-    height: 120,
     backgroundColor: '#F6F6F6',
     borderRadius: 16,
     zIndex: 2,
+    width: 120,
+    height: 120,
+  },
+  userPhoto: {
+    width: 120,
+    height: 120,
+    borderRadius: 16,
   },
   svgAddPhoto: {
     position: 'absolute',
-    top: 80,
-    left: 105,
+    bottom: 12.5,
+    right: -12.5,
   },
+
   showPass: {
     position: 'absolute',
     top: 32,
-    left: 320,
+    right: 32,
   },
   showPassText: {
     fontFamily: 'Roboto-Regular',
