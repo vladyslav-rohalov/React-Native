@@ -17,7 +17,7 @@ const initialState = {
   location: '',
 };
 
-export default function CreatePostScreen() {
+export default function CreatePostScreen({ navigation }) {
   const [publicationData, setPublicationData] = useState('');
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const inputTitleRef = useRef();
@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    backgroundColor: '#FFFFFF',
   },
   header: {
     flexDirection: 'row',

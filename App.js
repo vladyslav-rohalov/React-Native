@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './Screens/home/home';
 import RegistrationScreen from './Screens/auth/RegistrationScreen';
 import LoginScreen from './Screens/auth/LoginScreen';
@@ -13,7 +14,8 @@ import CreatePostScreen from './Screens/posts/createPostsScreen';
 import CommentsScreen from './Screens/comments/commentsScreen';
 
 SplashScreen.preventAutoHideAsync();
-const Stack = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator();
+const MainTab = createBottomTabNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -32,21 +34,70 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
+  const headerHide = {
+    headerShown: false,
+  };
 
   return (
-    <NavigationContainer>
-      <View onLayout={onLayoutRootView} style={styles.container}>
-        <StatusBar style="auto" />
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Registration" component={RegistrationScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="NewPost" component={CreatePostScreen} />
-          <Stack.Screen name="Posts" component={PostsScreen} />
-          <Stack.Screen name="Comments" component={CommentsScreen} />
-        </Stack.Navigator>
-      </View>
-    </NavigationContainer>
+    <View onLayout={onLayoutRootView} style={styles.container}>
+      <StatusBar style="auto" />
+      <NavigationContainer>
+        {/* <AuthStack.Navigator initialRouteName="Login">
+          <AuthStack.Screen
+            options={headerHide}
+            name="Login"
+            component={LoginScreen}
+          />
+          <AuthStack.Screen
+            options={headerHide}
+            name="Registration"
+            component={RegistrationScreen}
+          />
+        </AuthStack.Navigator> */}
+        <MainTab.Navigator initialRouteName="Home">
+          <MainTab.Screen
+            options={headerHide}
+            name="Home"
+            component={HomeScreen}
+          />
+          <MainTab.Screen
+            options={headerHide}
+            name="NewPost"
+            component={CreatePostScreen}
+          />
+          <MainTab.Screen
+            options={headerHide}
+            name="Posts"
+            component={PostsScreen}
+          />
+          <MainTab.Screen
+            options={headerHide}
+            name="Comments"
+            component={CommentsScreen}
+          />
+        </MainTab.Navigator>
+        {/* <Stack.Screen
+            options={headerHide}
+            name="Home"
+            component={HomeScreen}
+          />
+          <Stack.Screen
+            options={headerHide}
+            name="NewPost"
+            component={CreatePostScreen}
+          />
+          <Stack.Screen
+            options={headerHide}
+            name="Posts"
+            component={PostsScreen}
+          />
+          <Stack.Screen
+            options={headerHide}
+            name="Comments"
+            component={CommentsScreen}
+          /> */}
+      </NavigationContainer>
+    </View>
   );
 }
 

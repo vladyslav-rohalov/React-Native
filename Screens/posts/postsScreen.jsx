@@ -1,14 +1,17 @@
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import Svg, { Path, Rect, G, Defs, ClipPath } from 'react-native-svg';
 
-export default function PostsScreen() {
+export default function PostsScreen({ navigation }) {
   const photo = require('../../assets/images/photo.jpg');
   const img = require('../../assets/images/img.jpg');
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Publications</Text>
-        <TouchableOpacity style={styles.svgSignOut}>
+        <TouchableOpacity
+          style={styles.svgSignOut}
+          onPress={() => navigation.navigate('Login')}
+        >
           <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <Path
               d="M10 22H5C3.89543 22 3 21.1046 3 20V4C3 2.89543 3.89543 2 5 2H10"
@@ -94,7 +97,7 @@ export default function PostsScreen() {
 
       <View style={styles.footer}>
         <View style={styles.footerIcon}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Posts')}>
             <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <Rect width="24" height="24" fill="white" />
               <Path
@@ -135,7 +138,7 @@ export default function PostsScreen() {
               />
             </Svg>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('NewPost')}>
             <Svg width="70" height="40" viewBox="0 0 70 40" fill="none">
               <G clipPath="url(#clip0_12_109)">
                 <Rect width="70" height="40" rx="20" fill="#FF6C00" />
@@ -153,7 +156,7 @@ export default function PostsScreen() {
               </Defs>
             </Svg>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Comments')}>
             <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <Path
                 d="M20 21V19C20 16.7909 18.2091 15 16 15H8C5.79086 15 4 16.7909 4 19V21"
@@ -183,6 +186,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    backgroundColor: '#FFFFFF',
   },
   header: {
     flexDirection: 'row',
