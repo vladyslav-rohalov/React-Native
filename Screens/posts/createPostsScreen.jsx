@@ -34,28 +34,6 @@ export default function CreatePostScreen({ navigation }) {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
         <KeyboardAvoidingView style={{ flex: 1 }}>
-          <View style={styles.header}>
-            <Text style={styles.headerText}>Create a publication</Text>
-            <TouchableOpacity style={styles.svgBackArrow}>
-              <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <Path
-                  d="M20 12H4"
-                  stroke="#212121"
-                  strokeOpacity="0.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <Path
-                  d="M10 18L4 12L10 6"
-                  stroke="#212121"
-                  strokeOpacity="0.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </Svg>
-            </TouchableOpacity>
-          </View>
-
           <View style={styles.main}>
             <TouchableOpacity style={styles.uploadPhoto}>
               <Svg
@@ -203,26 +181,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: 'rgba(0, 0, 0, 0.3)',
-    shadowOffset: { width: 0, height: 0.5 },
-  },
-  headerText: {
-    fontFamily: 'Roboto-Medium',
-    fontSize: 17,
-    marginTop: 55,
-    marginBottom: 11,
-    letterSpacing: -0.41,
-    textAlign: 'center',
-  },
-  svgBackArrow: {
-    position: 'absolute',
-    top: 54,
-    left: 16,
   },
   main: {
     marginLeft: 16,

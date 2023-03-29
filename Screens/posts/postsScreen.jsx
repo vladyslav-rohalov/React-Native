@@ -6,35 +6,6 @@ export default function PostsScreen({ navigation }) {
   const img = require('../../assets/images/img.jpg');
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Publications</Text>
-        <TouchableOpacity
-          style={styles.svgSignOut}
-          onPress={() => navigation.navigate('Login')}
-        >
-          <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <Path
-              d="M10 22H5C3.89543 22 3 21.1046 3 20V4C3 2.89543 3.89543 2 5 2H10"
-              stroke="#BDBDBD"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <Path
-              d="M17 16L21 12L17 8"
-              stroke="#BDBDBD"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <Path
-              d="M21 12H9"
-              stroke="#BDBDBD"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </Svg>
-        </TouchableOpacity>
-      </View>
-
       <View style={styles.main}>
         <View style={styles.user}>
           <Image source={photo} style={styles.image} />
@@ -103,26 +74,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: 'rgba(0, 0, 0, 0.3)',
-    shadowOffset: { width: 0, height: 0.5 },
-  },
-  headerText: {
-    fontFamily: 'Roboto-Medium',
-    fontSize: 17,
-    marginTop: 55,
-    marginBottom: 11,
-    letterSpacing: -0.41,
-    textAlign: 'center',
-  },
-  svgSignOut: {
-    position: 'absolute',
-    top: 55,
-    right: 16,
   },
   main: {
     flex: 1,
