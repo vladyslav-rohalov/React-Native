@@ -1,136 +1,139 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './Screens/home/home';
 import RegistrationScreen from './Screens/auth/RegistrationScreen';
 import LoginScreen from './Screens/auth/LoginScreen';
 import PostsScreen from './Screens/posts/postsScreen';
 import CreatePostScreen from './Screens/posts/createPostsScreen';
 import CommentsScreen from './Screens/comments/commentsScreen';
-import { TouchableOpacity } from 'react-native-web';
-import { AddPostIcon } from './utils/icons';
+import { TouchableOpacity } from 'react-native';
 
 import { AntDesign, Ionicons, Feather } from '@expo/vector-icons';
-const AuthStack = createNativeStackNavigator();
+// const AuthStack = createNativeStackNavigator();
 const MainTab = createBottomTabNavigator();
+const AuthStack = createStackNavigator();
+// const MainStack = createStackNavigator();
 
 export default function UseRoute(isAuath) {
   return (
     <>
       {isAuath ? (
-        <MainTab.Navigator initialRouteName="Home">
+        <MainTab.Navigator
+          screenOptions={({ route }) => ({
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              fontFamily: 'Roboto-Medium',
+              fontSize: 17,
+              color: '#212121',
+            },
+            headerStyle: {
+              borderBottomWidth: 1,
+              borderColor: 'rgba(0, 0, 0, 0.3)',
+            },
+            tabBarShowLabel: false,
+            tabBarActiveTintColor: '#FFFFFF',
+            tabBarActiveBackgroundColor: '#FF6C00',
+            tabBarInactiveTintColor: '#BDBDBD',
+            tabBarItemStyle: {
+              borderRadius: 25,
+              maxWidth: 80,
+              height: 40,
+              margin: 11,
+            },
+            tabBarStyle: {
+              backgroundColor: '#FFFFFF',
+              height: 83,
+              borderTopWidth: 1,
+              alignItems: 'center',
+            },
+            tabBarIcon: ({ color }) => {
+              let iconName;
+              if (route.name === 'Posts') {
+                iconName = 'appstore-o';
+                return (
+                  <AntDesign
+                    name={iconName}
+                    size={24}
+                    color={color}
+                    // style={{ marginRight: 60 }}
+                  />
+                );
+              } else if (route.name === 'NewPost') {
+                iconName = 'add';
+                return <Ionicons name={iconName} size={24} color={color} />;
+              } else if (route.name === 'Home') {
+                iconName = 'md-person-outline';
+                return (
+                  <Ionicons
+                    name={iconName}
+                    size={24}
+                    color={color}
+                    // style={{ marginLeft: 60 }}
+                  />
+                );
+              }
+            },
+          })}
+        >
+          {/* Posts */}
           <MainTab.Screen
-            options={{
-              headerTitleAlign: 'center',
+            options={({ navigation }) => ({
               headerTitle: 'Publications',
-              tabBarStyle: { alignItems: 'center' },
-              headerTitleStyle: {
-                fontFamily: 'Roboto-Medium',
-                fontSize: 17,
-                color: '#212121',
-              },
-              headerStyle: {
-                borderBottomWidth: 1,
-                borderColor: 'rgba(0, 0, 0, 0.3)',
-              },
               headerRight: () => (
                 <TouchableOpacity
                   activeOpacity={0.6}
                   style={{ marginRight: 16 }}
+                  onPress={() => navigation.navigate('Login')}
                 >
                   <Feather name="log-out" size={24} color="#BDBDBD" />
                 </TouchableOpacity>
               ),
-              tabBarShowLabel: false,
-              // tabBarIcon: () => (
-              //   <AntDesign
-              //     name="appstore-o"
-              //     size={24}
-              //     color="#212121CC"
-              //     style={{ marginRight: 60 }}
-              //   />
-              // ),
-            }}
+            })}
             name="Posts"
             component={PostsScreen}
           />
+          {/* //Posts */}
 
+          {/* NewPost */}
           <MainTab.Screen
-            options={{
-              headerTitleAlign: 'center',
+            options={({ navigation }) => ({
               headerTitle: 'Create post',
-              headerTitleStyle: {
-                fontFamily: 'Roboto-Medium',
-                fontSize: 17,
-                color: '#212121',
-              },
-              headerStyle: {
-                borderBottomWidth: 1,
-                borderColor: 'rgba(0, 0, 0, 0.3)',
-              },
               headerLeft: () => (
                 <TouchableOpacity
                   activeOpacity={0.6}
                   style={{ marginLeft: 16 }}
+                  onPress={() => navigation.goBack()}
                 >
                   <Ionicons name="arrow-back" size={24} color="#212121CC" />
                 </TouchableOpacity>
               ),
-              tabBarStyle: { alignItems: 'center' },
-              tabBarShowLabel: false,
-              // tabBarIcon: () => <AddPostIcon />,
               tabBarIconStyle: { marginLeft: 60, marginRight: 60 },
-            }}
+            })}
             name="NewPost"
             component={CreatePostScreen}
           />
+          {/* //NewPost */}
 
+          {/* Home */}
           <MainTab.Screen
-            options={{
+            options={() => ({
               headerShown: false,
-              tabBarShowLabel: false,
-              tabBarStyle: { alignItems: 'center' },
-              tabBarIcon: () => (
-                <TouchableOpacity style={{ flex: 1, flexDirrection: 'row' }}>
-                  <Ionicons
-                    style={{ marginLeft: 43 }}
-                    name="md-person-outline"
-                    size={24}
-                    color="#212121CC"
-                  />
-                  <AddPostIcon />
-                  <AntDesign
-                    name="appstore-o"
-                    size={24}
-                    color="#212121CC"
-                    style={{ marginRight: 60 }}
-                  />
-                </TouchableOpacity>
-              ),
-            }}
+            })}
             name="Home"
             component={HomeScreen}
           />
-          {/* <MainTab.Screen
-            options={{
-              headerShown: false,
-              tabBarShowLabel: false,
-              tabBarIcon: ({ focused, size, color }) => (
-                <AntDesign name="appstore-o" size={24} color="#212121CC" />
-              ),
-            }}
-            name="Comments"
-            component={CommentsScreen}
-          /> */}
+          {/* // Home  */}
         </MainTab.Navigator>
       ) : (
         <AuthStack.Navigator initialRouteName="Login">
           <AuthStack.Screen
-            options={headerHide}
+            options={{ headerShown: false }}
             name="Login"
             component={LoginScreen}
           />
           <AuthStack.Screen
-            options={headerHide}
+            options={{ headerShown: false }}
             name="Registration"
             component={RegistrationScreen}
           />

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Svg, { Path, Rect, G, Defs, ClipPath, Circle } from 'react-native-svg';
 import { useState, useRef } from 'react';
+import { Camera } from 'expo-camera';
 
 const initialState = {
   photo: '',
@@ -20,6 +21,9 @@ const initialState = {
 export default function CreatePostScreen({ navigation }) {
   const [publicationData, setPublicationData] = useState('');
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  // const [camera, setCamera] = useState(null);
+  // const [photo, setPhoto] = useState(null);
+  // const [location, setLocation] = useState(null);
   const inputTitleRef = useRef();
   const inputLocationRef = useRef();
 
@@ -37,11 +41,11 @@ export default function CreatePostScreen({ navigation }) {
           <View style={styles.main}>
             <TouchableOpacity style={styles.uploadPhoto}>
               <Svg
-                style={styles.svgPhoto}
                 width="60"
                 height="60"
                 viewBox="0 0 60 60"
                 fill="none"
+                style={styles.svgPhoto}
               >
                 <Circle cx="30" cy="30" r="30" fill="white" />
                 <G clipPath="url(#clip0_32_29)">
@@ -66,6 +70,7 @@ export default function CreatePostScreen({ navigation }) {
                 </Defs>
               </Svg>
             </TouchableOpacity>
+            {/* <Camera /> */}
             <Text style={styles.uploadText}>Upload photo</Text>
 
             <View>

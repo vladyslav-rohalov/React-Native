@@ -6,7 +6,7 @@ import {
   ImageBackground,
   Image,
 } from 'react-native';
-import Svg, { Circle, Path, Rect, G, Defs, ClipPath } from 'react-native-svg';
+import Svg, { Circle, Path } from 'react-native-svg';
 
 export default function HomeScreen({ navigation }) {
   const backgroundImage = require('../../assets/images/bg.jpg');
