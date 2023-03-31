@@ -1,4 +1,3 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './Screens/home/home';
@@ -6,14 +5,10 @@ import RegistrationScreen from './Screens/auth/RegistrationScreen';
 import LoginScreen from './Screens/auth/LoginScreen';
 import PostsScreen from './Screens/posts/postsScreen';
 import CreatePostScreen from './Screens/posts/createPostsScreen';
-import CommentsScreen from './Screens/comments/commentsScreen';
 import { TouchableOpacity } from 'react-native';
-
 import { AntDesign, Ionicons, Feather } from '@expo/vector-icons';
-// const AuthStack = createNativeStackNavigator();
 const MainTab = createBottomTabNavigator();
 const AuthStack = createStackNavigator();
-// const MainStack = createStackNavigator();
 
 export default function UseRoute(isAuath) {
   return (
@@ -51,27 +46,13 @@ export default function UseRoute(isAuath) {
               let iconName;
               if (route.name === 'Posts') {
                 iconName = 'appstore-o';
-                return (
-                  <AntDesign
-                    name={iconName}
-                    size={24}
-                    color={color}
-                    // style={{ marginRight: 60 }}
-                  />
-                );
+                return <AntDesign name={iconName} size={24} color={color} />;
               } else if (route.name === 'NewPost') {
                 iconName = 'add';
                 return <Ionicons name={iconName} size={24} color={color} />;
               } else if (route.name === 'Home') {
                 iconName = 'md-person-outline';
-                return (
-                  <Ionicons
-                    name={iconName}
-                    size={24}
-                    color={color}
-                    // style={{ marginLeft: 60 }}
-                  />
-                );
+                return <Ionicons name={iconName} size={24} color={color} />;
               }
             },
           })}

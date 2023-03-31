@@ -34,43 +34,61 @@ export default function CreatePostScreen({ navigation }) {
     inputTitleRef.current.clear();
     inputLocationRef.current.clear();
   };
+
+  // const takePhoto = async () => {
+  //   try {
+  //     const photo = await camera.takePictureAsync();
+  //     setPhoto(photo.uri);
+  //     getAddress();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
         <KeyboardAvoidingView style={{ flex: 1 }}>
           <View style={styles.main}>
-            <TouchableOpacity style={styles.uploadPhoto}>
-              <Svg
-                width="60"
-                height="60"
-                viewBox="0 0 60 60"
-                fill="none"
-                style={styles.svgPhoto}
-              >
-                <Circle cx="30" cy="30" r="30" fill="white" />
-                <G clipPath="url(#clip0_32_29)">
-                  <Path
-                    d="M29.9998 33.2C31.7671 33.2 33.1998 31.7673 33.1998 30C33.1998 28.2327 31.7671 26.8 29.9998 26.8C28.2325 26.8 26.7998 28.2327 26.7998 30C26.7998 31.7673 28.2325 33.2 29.9998 33.2Z"
-                    fill="#BDBDBD"
-                  />
-                  <Path
-                    d="M27 20L25.17 22H22C20.9 22 20 22.9 20 24V36C20 37.1 20.9 38 22 38H38C39.1 38 40 37.1 40 36V24C40 22.9 39.1 22 38 22H34.83L33 20H27ZM30 35C27.24 35 25 32.76 25 30C25 27.24 27.24 25 30 25C32.76 25 35 27.24 35 30C35 32.76 32.76 35 30 35Z"
-                    fill="#BDBDBD"
-                  />
-                </G>
-                <Defs>
-                  <ClipPath id="clip0_32_29">
-                    <Rect
-                      width="24"
-                      height="24"
-                      fill="white"
-                      transform="translate(18 18)"
+            <View style={styles.cameraWrapper}>
+              <Camera style={styles.cameraContainer}>
+                <TouchableOpacity onPress={() => {}}>
+                  <Text style={{ color: 'white' }}>SNAP</Text>
+                </TouchableOpacity>
+                {/* <TouchableOpacity style={styles.uploadPhoto}>
+                <Svg
+                  width="60"
+                  height="60"
+                  viewBox="0 0 60 60"
+                  fill="none"
+                  style={styles.svgPhoto}
+                >
+                  <Circle cx="30" cy="30" r="30" fill="white" />
+                  <G clipPath="url(#clip0_32_29)">
+                    <Path
+                      d="M29.9998 33.2C31.7671 33.2 33.1998 31.7673 33.1998 30C33.1998 28.2327 31.7671 26.8 29.9998 26.8C28.2325 26.8 26.7998 28.2327 26.7998 30C26.7998 31.7673 28.2325 33.2 29.9998 33.2Z"
+                      fill="#BDBDBD"
                     />
-                  </ClipPath>
-                </Defs>
-              </Svg>
-            </TouchableOpacity>
-            {/* <Camera /> */}
+                    <Path
+                      d="M27 20L25.17 22H22C20.9 22 20 22.9 20 24V36C20 37.1 20.9 38 22 38H38C39.1 38 40 37.1 40 36V24C40 22.9 39.1 22 38 22H34.83L33 20H27ZM30 35C27.24 35 25 32.76 25 30C25 27.24 27.24 25 30 25C32.76 25 35 27.24 35 30C35 32.76 32.76 35 30 35Z"
+                      fill="#BDBDBD"
+                    />
+                  </G>
+                  <Defs>
+                    <ClipPath id="clip0_32_29">
+                      <Rect
+                        width="24"
+                        height="24"
+                        fill="white"
+                        transform="translate(18 18)"
+                      />
+                    </ClipPath>
+                  </Defs>
+                </Svg>
+              </TouchableOpacity> */}
+              </Camera>
+            </View>
+
             <Text style={styles.uploadText}>Upload photo</Text>
 
             <View>
@@ -198,12 +216,29 @@ const styles = StyleSheet.create({
     left: '50%',
     transform: [{ translateX: -30 }, { translateY: -30 }],
   },
+  cameraWrapper: {
+    width: '100%',
+    height: 240,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+    backgroundColor: 'red',
+  },
+  cameraContainer: {
+    width: '90%',
+    height: '90%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+    zIndex: 3,
+  },
   uploadPhoto: {
     backgroundColor: '#E8E8E8',
     width: '100%',
     height: 240,
     borderRadius: 8,
   },
+
   uploadText: {
     fontFamily: 'Roboto-Regular',
     fontSize: 16,

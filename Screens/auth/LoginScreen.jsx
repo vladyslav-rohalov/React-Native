@@ -9,9 +9,7 @@ import {
   ImageBackground,
   TouchableWithoutFeedback,
 } from 'react-native';
-import { TouchableOpacityComponent } from 'react-native';
 import { useState, useRef } from 'react';
-import { Button } from 'react-native-web';
 
 const initialState = {
   mail: '',
