@@ -11,7 +11,8 @@ import {
 import React from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { useState, useRef, useEffect } from 'react';
-import { Camera } from 'expo-camera';
+import { Camera, CameraType } from 'expo-camera';
+import { Ionicons } from '@expo/vector-icons';
 import { CameraIcon, DeleteIcon, LocationIcon } from '../../utils/icons';
 
 const initialState = {
@@ -23,14 +24,15 @@ const initialState = {
 export default function CreatePostScreen({ navigation }) {
   const [publicationData, setPublicationData] = useState('');
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [type, setType] = useState(CameraType.back);
   const [camera, setCamera] = useState(null);
   const [photo, setPhoto] = useState(null);
-  const [location, setLocation] = useState(null);
+  // const [location, setLocation] = useState(null);
   const inputTitleRef = useRef();
   const inputLocationRef = useRef();
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
-  useFocusEffect(React.useCallback(() => {}, []));
+  // useFocusEffect(React.useCallback(() => {}, []));
 
   const handlePublication = () => {
     setIsShowKeyboard(false);
@@ -53,15 +55,35 @@ export default function CreatePostScreen({ navigation }) {
     }
   };
 
+  function toggleCameraType() {
+    setType(current =>
+      current === CameraType.back ? CameraType.front : CameraType.back
+    );
+  }
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
         <KeyboardAvoidingView style={{ flex: 1 }}>
           <View style={styles.main}>
             <View style={styles.cameraWrapper}>
-              <Camera style={styles.cameraContainer} ref={setCamera}>
+              <Camera
+                style={styles.cameraContainer}
+                ref={setCamera}
+                type={type}
+              >
                 <TouchableOpacity onPress={takePhoto}>
                   <CameraIcon />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.cameraReverse}
+                  onPress={toggleCameraType}
+                >
+                  <Ionicons
+                    name="md-camera-reverse-outline"
+                    size={24}
+                    color="#ffffff"
+                  />
                 </TouchableOpacity>
               </Camera>
             </View>
@@ -148,6 +170,11 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  cameraReverse: {
+    position: 'absolute',
+    bottom: 8,
+    right: 8,
   },
   uploadPhoto: {
     backgroundColor: '#E8E8E8',
