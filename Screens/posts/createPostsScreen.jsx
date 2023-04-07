@@ -7,52 +7,97 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   TextInput,
+  Image,
 } from 'react-native';
 import React from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Camera, CameraType } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
 import { CameraIcon, DeleteIcon, LocationIcon } from '../../utils/icons';
+import * as Location from 'expo-location';
 
 const initialState = {
   photo: '',
   title: '',
   location: '',
+  address: '',
 };
 
 export default function CreatePostScreen({ navigation }) {
-  const [publicationData, setPublicationData] = useState('');
+  const [publicationData, setPublicationData] = useState(initialState);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [type, setType] = useState(CameraType.back);
   const [camera, setCamera] = useState(null);
-  const [photo, setPhoto] = useState(null);
-  // const [location, setLocation] = useState(null);
-  const inputTitleRef = useRef();
-  const inputLocationRef = useRef();
-  const [permission, requestPermission] = Camera.useCameraPermissions();
+  // const [permission, requestPermission] = Camera.useCameraPermissions();
 
-  // useFocusEffect(React.useCallback(() => {}, []));
+  useFocusEffect(
+    React.useCallback(() => {
+      (async () => {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          Alert.alert('Permission to access location was denied');
+        }
+      })();
+      (async () => {
+        const { status } = await Camera.requestCameraPermissionsAsync();
+        if (status !== 'granted') {
+          Alert.alert('Permission to access camera was denied');
+        }
+      })();
+      (() => {
+        if (
+          publicationData.photo &&
+          publicationData.title &&
+          publicationData.address !== ''
+        ) {
+        }
+      })();
+      getLocation();
+    }, [])
+  );
 
   const handlePublication = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
     setPublicationData(initialState);
-    inputTitleRef.current.clear();
-    inputLocationRef.current.clear();
-
-    console.log(permission);
+    navigation.navigate('Posts', { publicationData });
   };
 
   const takePhoto = async () => {
     try {
       const photo = await camera.takePictureAsync();
-      setPhoto(photo.uri);
-      // getAddress();
-      console.log(photo);
+      setPublicationData(prevState => ({ ...prevState, photo: photo.uri }));
+      getAddress();
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const getAddress = async () => {
+    try {
+      const address = await Location.reverseGeocodeAsync({
+        latitude: publicationData.location.coords.latitude,
+        longitude: publicationData.location.coords.longitude,
+      });
+      setPublicationData(prevState => ({
+        ...prevState,
+        address: `${address[0].city}, ${address[0].country}`,
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getLocation = async () => {
+    const location = await Location.getCurrentPositionAsync();
+    setPublicationData(prevState => ({ ...prevState, location: location }));
+  };
+
+  const publishPost = () => {
+    // uploadPostToServer();
+    navigation.navigate('DefaultScreen');
+    resetFunction();
   };
 
   function toggleCameraType() {
@@ -72,6 +117,14 @@ export default function CreatePostScreen({ navigation }) {
                 ref={setCamera}
                 type={type}
               >
+                {publicationData.photo && (
+                  <View style={styles.takePhotoContainer}>
+                    <Image
+                      source={{ uri: publicationData.photo }}
+                      style={{ width: 120, height: 90 }}
+                    />
+                  </View>
+                )}
                 <TouchableOpacity onPress={takePhoto}>
                   <CameraIcon />
                 </TouchableOpacity>
@@ -88,15 +141,15 @@ export default function CreatePostScreen({ navigation }) {
               </Camera>
             </View>
 
-            <Text style={styles.uploadText}>Upload photo</Text>
+            <Text style={styles.uploadText}>Take photo</Text>
 
             <View>
               <TextInput
                 style={styles.input}
                 inputMode="text"
                 placeholder="Title..."
+                value={publicationData.title}
                 placeholderTextColor={'#BDBDBD'}
-                ref={inputTitleRef}
                 onFocus={() => setIsShowKeyboard(true)}
                 onChangeText={e => {
                   setPublicationData(prevState => ({ ...prevState, title: e }));
@@ -110,35 +163,47 @@ export default function CreatePostScreen({ navigation }) {
               </View>
               <TextInput
                 style={[styles.input, { paddingLeft: 24 }]}
+                value={publicationData.address}
                 inputMode="text"
                 placeholder="Location..."
                 placeholderTextColor={'#BDBDBD'}
-                ref={inputLocationRef}
                 onFocus={() => setIsShowKeyboard(true)}
                 onChangeText={e => {
                   setPublicationData(prevState => ({
                     ...prevState,
-                    location: e,
+                    address: e,
                   }));
                 }}
               />
             </View>
 
-            <TouchableOpacity style={styles.button} onPress={handlePublication}>
-              <Text style={styles.buttonText}>Publish</Text>
+            <TouchableOpacity
+              style={[
+                !publicationData.photo
+                  ? styles.button
+                  : [styles.button, { backgroundColor: '#FF6C00' }],
+              ]}
+              onPress={handlePublication}
+            >
+              <Text
+                style={[
+                  !publicationData.photo
+                    ? styles.buttonText
+                    : [styles.buttonText, { color: '#FFFFFF' }],
+                ]}
+              >
+                Publish
+              </Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.footer}>
-            <View
-              style={{
-                ...styles.footerIcon,
-              }}
+            <TouchableOpacity
+              style={styles.footerIcon}
+              onPress={() => setPublicationData(initialState)}
             >
-              <TouchableOpacity>
-                <DeleteIcon />
-              </TouchableOpacity>
-            </View>
+              <DeleteIcon />
+            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       </View>
@@ -175,6 +240,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 8,
     right: 8,
+  },
+  takePhotoContainer: {
+    position: 'absolute',
+    top: 4,
+    left: 4,
   },
   uploadPhoto: {
     backgroundColor: '#E8E8E8',
